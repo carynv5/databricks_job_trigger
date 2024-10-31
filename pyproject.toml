@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dbfs_finder"  # Changed to match module name with underscore
+version = "0.1.0"
+description = "Databricks File System (DBFS) file finder utility"
+authors = [
+    { name = "Your Name", email = "your.email@example.com" }
+]
+dependencies = [
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+    "typing-extensions>=4.7.0",
+    "databricks-connect>=15.4.2",
+    "databricks-sdk>=0.20.0",
+    "PyYAML>=6.0.2",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.7.0",
+    "isort>=5.12.0",
+    "flake8>=6.1.0",
+    "mypy>=1.4.1",
+    "python-dotenv>=1.0.0"
+]
+
+[project.scripts]
+dbfs-finder = "dbfs_finder.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dbfs_finder"]
+
+[tool.hatch.build]
+packages = ["src/dbfs_finder"]

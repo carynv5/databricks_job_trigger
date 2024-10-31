@@ -1,0 +1,47 @@
+bundle:
+  name: survey-processing
+
+resources:
+  jobs:
+    survey_job:
+      name: "Survey Processing Job"
+      existing_cluster_id: "1030-181954-oxs1wrk2"
+      
+      tasks:
+        - task_key: "process_surveys"
+          python_wheel_task:
+            package_name: "survey_processing"
+            entry_point: "main"
+          
+          libraries:
+            - whl: "dist/*.whl"
+            - requirements: "requirements.txt"
+
+      parameters:
+        - name: "date"
+          default: "2024-03-01"
+        - name: "region"
+          default: "NA"
+
+      # schedule:
+      #   quartz_cron_expression: "0 0 7 * * ?"
+      #   timezone_id: "America/New_York"
+      
+      email_notifications:
+        on_success:
+          - "cary.greenwood@nv5.com"
+        on_failure:
+          - "cary.greenwood@nv5.com"
+          
+      retry_on_timeout: true
+      max_retries: 3
+      min_retry_interval_millis: 300000
+
+  workspace:
+    file_paths:
+      - source: "data/"
+        destination: "/dbfs/FileStore/survey_processing/data/"
+        
+  secrets:
+    - key: "api_key"
+      scope: "survey_processing"

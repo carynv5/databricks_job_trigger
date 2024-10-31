@@ -1,0 +1,4 @@
+environment_vars:
+  STORAGE_PATH: "/mnt/dev/survey_data"
+  LOG_LEVEL: "DEBUG"
+  MAX_THREADS: "4"

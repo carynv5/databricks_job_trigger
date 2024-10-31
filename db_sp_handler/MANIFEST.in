@@ -1,0 +1,4 @@
+include survey_processing/data/lookup_tables/*.csv
+include survey_processing/conf/**/*.yml
+recursive-include survey_processing/data *.csv
+recursive-include survey_processing/conf *.yml
