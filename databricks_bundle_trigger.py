@@ -236,12 +236,10 @@ class DatabricksManager:
                     "existing_cluster_id": job_config['existing_cluster_id'],
                     "libraries": [
                         {"whl": wheel_path}
-                        # Temporarily remove pip entry for testing
-                        # {"pip": [dbfs_requirements]}
                     ]
                 }],
                 "email_notifications": job_config['email_notifications'],
-                "schedule": job_config['schedule'],
+                # "schedule": job_config['schedule'],
                 "max_concurrent_runs": 1
             }
 

@@ -1,4 +1,4 @@
-# Databricks Bundle Deployment Tool
+# Databricks Deployment Tool
 
 This tool automates the end-to-end process of deploying Python packages and jobs to Databricks workspaces. It handles the complete deployment pipeline: building Python wheel packages locally, uploading them to Databricks File System (DBFS), creating or updating job configurations, and managing job execution. The tool is particularly useful for data engineering teams who need to maintain consistent deployment processes across multiple Databricks jobs and packages. When you run the tool, it executes the following steps:
 
@@ -80,11 +80,37 @@ Your Databricks bundle should follow this structure:
 
 ```
 your_bundle/
-├── databricks.yml      # Job configuration
-├── requirements.txt    # Package dependencies
+├── databricks.yml     # Job configuration
+├── requirements.txt   # Package dependencies
+├── pyproject.toml     # Package configuration
 ├── setup.py           # Package setup file
 └── src/               # Source code
 ```
+
+It's best practice to maintain a second virtual env for the bundle being deployed:
+```bash
+uv venv --python 3.12
+source .venv/bin/activate
+uv pip install -e .
+uv sync
+```
+
+This then allows you to dump all pyproject.toml requirements to a requirements.txt:
+```bash
+uv pip compile pyproject.toml -o requirements.txt
+```
+
+The included `db_sp_handler` folder in this repository is an example Databricks bundle that processes survey data. You can use this as a template or replace it entirely with your own bundle. To use your own bundle:
+
+1. Ensure your bundle follows the structure above
+2. Replace the bundle path in the deployment command:
+   ```python
+   # Instead of using the example bundle:
+   # dbx.deploy_bundle("db_sp_handler")
+   
+   # Use your own bundle:
+   dbx.deploy_bundle("path/to/your/bundle")
+   ```
 
 ## Configuration
 
@@ -101,8 +127,6 @@ resources:
           - "success@example.com"
         on_failure:
           - "failure@example.com"
-      schedule:
-        quartz_cron_expression: "0 0 0 * * ?"
 ```
 
 ## Key Features Explained
