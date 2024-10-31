@@ -16,6 +16,10 @@ dependencies = [
     "databricks-connect>=15.4.2",
     "databricks-sdk>=0.20.0",
     "PyYAML>=6.0.2",
+    "hatchling",
+    "wheel",
+    "setuptools",
+    "pip-tools",
 ]
 requires-python = ">=3.10"
 readme = "README.md"

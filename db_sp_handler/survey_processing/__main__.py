@@ -1,9 +1,13 @@
-import os
+"""
+The entry point of the Python Wheel
+"""
 import argparse
-import pandas as pd
 from datetime import datetime
 
 def main():
+    """
+    Main function to process survey data
+    """
     parser = argparse.ArgumentParser(description='Process survey data')
     parser.add_argument('--date', type=str, required=True,
                       help='Processing date (YYYY-MM-DD)')
@@ -13,16 +17,7 @@ def main():
                       help='Output format (parquet/csv)')
     
     args = parser.parse_args()
+    print(f"Processing survey data for {args.date} in region {args.region} with format {args.output_format}")
 
-    # Get the directory where the script is located
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    log_file = os.path.join(script_dir, 'processing_log.txt')
-    
-    # Print for debugging
-    print(f"Writing log to: {log_file}")
-    
-    with open(log_file, 'a') as f:
-        f.write(f"Processed survey data for {args.region} on {args.date}\n")
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

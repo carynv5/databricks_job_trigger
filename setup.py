@@ -5,7 +5,7 @@ setup(
     version="0.1.0",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    python_requires=">=3.12",
+    python_requires='>=3.8',
     install_requires=[
         "requests>=2.31.0",
         "python-dotenv>=1.0.0",

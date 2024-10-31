@@ -15,12 +15,12 @@ The setup process is straightforward: after cloning the repository, you'll need 
 
 ## Features
 
-- 🏗️ Automated wheel package building
-- 📤 DBFS file upload management
-- 🔄 Job creation and updates
-- 🚀 Bundle deployment automation
-- 📋 Cluster management and validation
-- ⚡ Direct job execution capability
+- Automated wheel package building
+- DBFS file upload management
+- Job creation and updates
+- Bundle deployment automation
+- Cluster management and validation
+- Direct job execution capability
 
 ## Prerequisites
 
