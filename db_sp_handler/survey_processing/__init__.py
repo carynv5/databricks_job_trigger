@@ -1,2 +1,3 @@
-__version__ = '0.1.2'
-__author__ = 'Cary Greenwood'
+from .main import main
+
+__all__ = ['main']

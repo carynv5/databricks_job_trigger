@@ -1,28 +1,25 @@
 bundle:
-  name: survey-processing
+  name: "survey-processing"
 
 resources:
   jobs:
-    survey_job:
+    survey_processing_job:
       name: "Survey Processing Job"
-      existing_cluster_id: "1030-181954-oxs1wrk2"
+      job_clusters:
+        - job_cluster_key: "main"
+          new_cluster:
+            spark_version: "13.3.x-scala2.12"
+            node_type_id: "i3.xlarge"
+            num_workers: 1
       tasks:
-        - task_key: "process_surveys"
+        - task_key: "main_task"
+          job_cluster_key: "main"
           python_wheel_task:
             package_name: "survey_processing"
-            entry_point: "__main__:main"
-            parameters: 
-              - "--date"
-              - "{{date}}"
-              - "--region"
-              - "{{region}}"
-              - "--output-format"
-              - "parquet"
+            entry_point: "main"
+            parameters: ["--date", "2024-11-04", "--region", "US"]  # Add your parameters here
           libraries:
-            - whl: "dbfs:/FileStore/jars/survey_processing-0.1.2-py3-none-any.whl"  # Changed this line
-
-      parameters:
-        - name: "date"
-          default: "2024-03-01"
-        - name: "region"
-          default: "NA"
+            - whl: "dist/survey_processing-0.1.2-py3-none-any.whl"
+          timeout_seconds: 600
+          retry_on_timeout: true
+          max_retries: 3
